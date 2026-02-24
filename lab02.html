@@ -9,9 +9,16 @@
 <body>
     <header>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="lab02.html" class="active">Lab 2: AI Evaluation</a>
-            <!-- Add more lab links as the semester progresses -->
+            <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="lab02.html" class="active">Lab 2: AI Evaluation</a>
+                <!-- Add more lab links as the semester progresses -->
+            </div>
         </nav>
         <h1>AI Tool Evaluation</h1>
     </header>
@@ -61,5 +68,27 @@
     <footer>
         <p>&copy; Roderick Villareal | <a href="https://github.com/yourusername/dcda-portfolio">GitHub</a></p>
     </footer>
+
+    <!-- JavaScript for Hamburger Menu -->
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            const isOpen = hamburger.getAttribute('aria-expanded') === 'true';
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', !isOpen);
+        });
+
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+    </script>
 </body>
 </html>

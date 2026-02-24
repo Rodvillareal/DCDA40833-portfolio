@@ -8,10 +8,19 @@
     <title>Your Name | DCDA 40833 Skills Portfolio</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body class="light-mode">
     <!-- Navigation: Links to all portfolio pages -->
     <nav>
-        <ul>
+        <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+            <span class="sun-icon">☀️</span>
+            <span class="moon-icon">🌙</span>
+        </button>
+        <ul class="nav-menu">
             <li><a href="index.html">Home</a></li>
             <li><a href="ai-evaluation.html">AI Evaluation</a></li>
             <li><a href="tufte-critique.html">Tufte Critique</a></li>
@@ -34,6 +43,25 @@
             <!-- TODO: Write a brief introduction (2-3 sentences) about your portfolio -->
             <p>Welcome to my Skills Portfolio for DCDA 40833. This profolio will show the work that I have done this semester and what skills I have learned.</p>
             <p>All of these different labs show the work that I have done and the new skills that I have acquired.</p>
+            <button class="hover-button">Hover Over Me!</button>
+            
+            <!-- Image Carousel -->
+            <div class="carousel">
+                <button class="carousel-btn prev-btn" aria-label="Previous image">‹</button>
+                <div class="carousel-container">
+                    <img src="images/photo 1.png" alt="Photo 1" class="carousel-image active">
+                    <img src="images/photo 2.png" alt="Photo 2" class="carousel-image">
+                    <img src="images/photo 3.png" alt="Photo 3" class="carousel-image">
+                    <img src="images/photo 4.png" alt="Photo 4" class="carousel-image">
+                </div>
+                <button class="carousel-btn next-btn" aria-label="Next image">›</button>
+                <div class="carousel-indicators">
+                    <span class="indicator active" data-index="0"></span>
+                    <span class="indicator" data-index="1"></span>
+                    <span class="indicator" data-index="2"></span>
+                    <span class="indicator" data-index="3"></span>
+                </div>
+            </div>
         </section>
 
         <!-- About Section: Tell visitors about yourself -->
@@ -86,7 +114,7 @@
                 </a>
 
                 <!-- Lab 5: TBD -->
-                <a href="lab5.html" class="portfolio-card">
+                <a href="lab05.html" class="portfolio-card">
                     <h3>Lab 5</h3>
                     <span class="lab-tag">Lab 5</span>
                     <p>Content based on Lab 5 assignment.</p>
@@ -118,5 +146,110 @@
         <p><a href="https://github.com/yourusername/your-repo-name">View Repository on GitHub</a></p>
         <p>&copy; 2026 Roderick Villareal | DCDA 40833 | TCU</p>
     </footer>
+
+    <!-- JavaScript for Hamburger Menu -->
+    <script>
+        // Get the hamburger button and nav menu
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        // Toggle menu when hamburger is clicked
+        hamburger.addEventListener('click', () => {
+            const isOpen = hamburger.getAttribute('aria-expanded') === 'true';
+            
+            // Toggle the active class
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            // Update aria-expanded for accessibility
+            hamburger.setAttribute('aria-expanded', !isOpen);
+        });
+
+        // Close menu when clicking on a nav link (smooth UX on mobile)
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // Dark mode toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+        }
+
+        // Toggle dark mode
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // Save theme preference
+            const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            localStorage.setItem('theme', theme);
+        });
+
+        // Image carousel functionality
+        const images = document.querySelectorAll('.carousel-image');
+        const indicators = document.querySelectorAll('.indicator');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        let currentIndex = 0;
+
+        function showImage(index, direction) {
+            // Remove all classes from images
+            images.forEach(img => {
+                img.classList.remove('active', 'prev');
+            });
+            
+            // Remove active class from indicators
+            indicators.forEach(ind => ind.classList.remove('active'));
+            
+            // Set previous image position based on direction
+            if (direction === 'next') {
+                images.forEach((img, i) => {
+                    if (i < index) {
+                        img.classList.add('prev');
+                    }
+                });
+            } else if (direction === 'prev') {
+                images.forEach((img, i) => {
+                    if (i > index) {
+                        img.classList.remove('prev');
+                    }
+                });
+            }
+            
+            // Add active class to current image and indicator
+            images[index].classList.add('active');
+            indicators[index].classList.add('active');
+        }
+
+        // Next button
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex, 'next');
+        });
+
+        // Previous button
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage(currentIndex, 'prev');
+        });
+
+        // Indicator clicks
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                const direction = index > currentIndex ? 'next' : 'prev';
+                currentIndex = index;
+                showImage(currentIndex, direction);
+            });
+        });
+    </script>
 </body>
 </html>

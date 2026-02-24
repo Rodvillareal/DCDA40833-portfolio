@@ -16,6 +16,17 @@
     --white: #ffffff;
 }
 
+/* Dark mode color scheme */
+body.dark-mode {
+    --primary-color: #e69a27;      /* Brighter orange for dark mode */
+    --secondary-color: #5c6fd8;    /* Lighter blue */
+    --accent-color: #ffd700;       /* Gold accent */
+    --text-color: #e4e4e4;         /* Light gray for text */
+    --text-secondary: #94a3b8;     /* Lighter secondary text */
+    --bg-color: #1a1a1a;           /* Dark background */
+    --white: #2d2d2d;              /* Dark gray instead of white */
+}
+
 /* =========================
    Basic Reset & Typography
    ========================= */
@@ -34,6 +45,177 @@ body {
     line-height: 1.6;
     color: var(--text-color);
     background-color: var(--bg-color);
+}
+
+/* =========================
+   Buttons
+   ========================= */
+.hover-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hover-button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hover-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--white);
+    border: 2px solid var(--text-secondary);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.theme-toggle .sun-icon {
+    display: block;
+}
+
+.theme-toggle .moon-icon {
+    display: none;
+}
+
+body.dark-mode .theme-toggle .sun-icon {
+    display: none;
+}
+
+body.dark-mode .theme-toggle .moon-icon {
+    display: block;
+}
+
+/* Image Carousel */
+.carousel {
+    position: relative;
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px 0;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+}
+
+.carousel-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out;
+    left: 0;
+    top: 0;
+}
+
+.carousel-image.active {
+    transform: translateX(0);
+}
+
+.carousel-image:not(.active) {
+    transform: translateX(100%);
+}
+
+.carousel-image.prev {
+    transform: translateX(-100%);
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--text-color);
+    border: none;
+    font-size: 48px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.2);
+}
+
+.indicator.active {
+    background-color: var(--primary-color);
+    width: 30px;
+    border-radius: 6px;
 }
 
 /* =========================
@@ -65,10 +247,65 @@ nav {
     padding: 0.75rem;
     display: flex;              /* Make nav a flex container */
     justify-content: center;    /* Center the ul inside nav */
+    align-items: center;        /* Vertically center items */
     position: sticky;           /* Stick to top when scrolling */
     top: 0;
     z-index: 100;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Hamburger Button - Hidden by default on desktop */
+.hamburger {
+    display: none;              /* Hidden on desktop */
+    flex-direction: column;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 101;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    margin: 3px 0;
+    transition: all 0.3s ease;
+    border-radius: 3px;
+}
+
+/* Hamburger animation when active */
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Alternative nav structure for lab pages (direct anchor tags) */
+.nav-menu {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+nav .nav-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+}
+
+nav .nav-menu a:hover,
+nav .nav-menu a.active {
+    background-color: var(--primary-color);
 }
 
 /* Style the navigation list */
@@ -376,24 +613,84 @@ footer a:hover {
    Responsive Design (Mobile)
    ========================= */
 @media (max-width: 768px) {
-    header h1 {
-        font-size: 1.5rem;     /* Smaller on mobile */
+    /* Show hamburger button on mobile */
+    .hamburger {
+        display: flex;
+        position: absolute;
+        left: 1rem;
     }
 
+    /* Hide nav menu by default on mobile */
     nav {
-        font-size: 0.9rem;
+        position: relative;
     }
 
-    /* Stack navigation vertically on mobile */
     nav ul {
-        flex-direction: column;  /* Change from row to column */
-        align-items: center;     /* Center the stacked items */
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;  /* Stack vertically */
+        align-items: stretch;    /* Full width items */
+        background-color: #3d1461;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Show menu when active */
+    nav ul.active {
+        max-height: 400px;       /* Adjust based on number of items */
+    }
+
+    /* Alternative nav structure (direct anchor tags) */
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background-color: #3d1461;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-menu.active {
+        max-height: 400px;
+    }
+
+    .nav-menu a {
+        display: block;
+        padding: 1rem;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-menu a:last-child {
+        border-bottom: none;
+    }
+
+    nav li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    nav li:last-child {
+        border-bottom: none;
     }
 
     nav a {
-        display: block;          /* Full width for easier tapping */
+        display: block;
+        padding: 1rem;
         width: 100%;
-        text-align: center;
+    }
+
+    header h1 {
+        font-size: 1.5rem;     /* Smaller on mobile */
     }
 
     main section {
