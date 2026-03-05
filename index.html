@@ -6,6 +6,9 @@
     <meta name="description" content="Skills Portfolio showcasing work from DCDA 40833">
     <meta name="author" content="Your Name">
     <title>Your Name | DCDA 40833 Skills Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body class="light-mode">
@@ -22,11 +25,11 @@
         </button>
         <ul class="nav-menu">
             <li><a href="index.html">Home</a></li>
-            <li><a href="ai-evaluation.html">AI Evaluation</a></li>
-            <li><a href="tufte-critique.html">Tufte Critique</a></li>
-            <li><a href="tableau-visualization.html">Tableau Viz</a></li>
-            <li><a href="lab5.html">Lab 5</a></li>
-            <li><a href="hometown-map.html">Hometown Map</a></li>
+            <li><a href="lab02.html">AI Evaluation</a></li>
+            <li><a href="lab03.html">Tufte Critique</a></li>
+            <li><a href="lab04.html">Tableau Viz</a></li>
+            <li><a href="lab05.html">Lab 5</a></li>
+            <li><a href="lab06.html">Hometown Map</a></li>
         </ul>
     </nav>
 
@@ -38,7 +41,7 @@
 
     <main>
         <!-- Welcome Section: Brief introduction to your portfolio -->
-        <section id="welcome">
+        <section id="welcome" class="section-reveal">
             <h2>Welcome</h2>
             <!-- TODO: Write a brief introduction (2-3 sentences) about your portfolio -->
             <p>Welcome to my Skills Portfolio for DCDA 40833. This profolio will show the work that I have done this semester and what skills I have learned.</p>
@@ -65,7 +68,7 @@
         </section>
 
         <!-- About Section: Tell visitors about yourself -->
-        <section id="about">
+        <section id="about" class="section-reveal">
             <h2>About Me</h2>
             <!-- TODO: Replace this placeholder content with information about yourself -->
              <!-- I have explained my year and my major to show that I have other experience besides coding -->
@@ -75,17 +78,17 @@
             <p><strong>What I hope to learn:</strong> I am looking to be able to understand the basics of coding and be able to understand it.</p>
 
             
-            <!--   -->
-            <!--
+            <!-- Profile photo — uncomment to display:
             <figure class="viz-container">
-              This is a photo that I chose to use as it shows me and is a good headshot  -->
-                <img src="images/2E479170-A495-43F9-9507-CDE3F7AB3520.JPG" alt="Photo of Your Name" width="100%">
+                <img src="images/2E479170-A495-43F9-9507-CDE3F7AB3520.JPG" alt="Photo of Roderick Villareal"
+                     style="max-width: 280px; border-radius: 50%; border: 4px solid var(--primary-color);">
             </figure>
+            -->
             
         </section>
 
         <!-- Portfolio Section: Links to all lab pages -->
-        <section id="portfolio">
+        <section id="portfolio" class="section-reveal">
             <h2>My Work</h2>
             <p>Click on any card below to view that lab assignment. Focus of actual labs may change over the course of the semester:</p>
 
@@ -93,7 +96,7 @@
             <div class="portfolio-grid">
 
                 <!-- Lab 2: AI Tool Evaluation -->
-                <a href="lab02.html">Lab 2: AI Evaluation</a>
+                <a href="lab02.html" class="portfolio-card">
                     <h3>AI Tool Evaluation</h3>
                     <span class="lab-tag">Lab 2</span>
                     <p>Analysis of AI tools and their capabilities, exploring how artificial intelligence is changing digital culture.</p>
@@ -113,11 +116,11 @@
                     <p>Interactive data visualization created with Tableau Public, exploring patterns in real-world data.</p>
                 </a>
 
-                <!-- Lab 5: TBD -->
+                <!-- Lab 5: JavaScript Interactivity -->
                 <a href="lab05.html" class="portfolio-card">
-                    <h3>Lab 5</h3>
+                    <h3>JavaScript Interactivity</h3>
                     <span class="lab-tag">Lab 5</span>
-                    <p>Content based on Lab 5 assignment.</p>
+                    <p>Building interactive UI components with JavaScript, including a dark/light mode toggle, a color-changing hover button, and an image carousel.</p>
                 </a>
 
                 <!-- Lab 6: Hometown Map -->
@@ -131,7 +134,7 @@
         </section>
 
         <!-- Reflection Section: Optional semester reflection -->
-        <section id="reflection">
+        <section id="reflection" class="section-reveal">
             <h2>Semester Reflection</h2>
             <!-- TODO: After completing all labs, write a reflection on your growth -->
             <p><strong>What I learned:</strong> [Reflect on the skills you developed across all six labs]</p>
@@ -250,6 +253,17 @@
                 showImage(currentIndex, direction);
             });
         });
+
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.section-reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.08 });
+        revealElements.forEach(el => revealObserver.observe(el));
     </script>
 </body>
 </html>
